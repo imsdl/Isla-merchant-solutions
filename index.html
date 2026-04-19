@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isla Merchant Solutions</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0a0a0a;
+  --white: #f5f4f0;
+  --accent: #e8192c;
+  --mid: #141414;
+  --border: rgba(245,244,240,0.1);
+  --wa: #e8192c;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* WHATSAPP */
+.wa-float {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  background: var(--wa);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(232,25,44,0.5); }
+  50% { box-shadow: 0 0 0 15px rgba(232,25,44,0); }
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(0,0,0,0.85);
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 2rem 4rem;
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+}
+
+h1 em {
+  color: var(--accent);
+}
+
+.hero-sub {
+  margin-top: 1.5rem;
+  max-width: 500px;
+  opacity: 0.7;
+}
+
+/* BUTTON */
+.btn-primary {
+  display: inline-block;
+  margin-top: 2rem;
+  background: var(--accent);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* COUNTER */
+.live-counter {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.counter-label {
+  color: var(--accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+#moneyCounter {
+  font-family: 'Syne';
+  font-size: 4rem;
+  color: var(--accent);
+  margin: 1rem 0;
+}
+
+.counter-sub {
+  opacity: 0.6;
+}
+
+/* FEATURES */
+.features {
+  background: var(--mid);
+  padding: 5rem 2rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.feat-card {
+  border: 1px solid var(--border);
+  padding: 2rem;
+}
+
+/* QR */
+.qr-cta {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.qr-box {
+  background: white;
+  color: black;
+  padding: 2rem;
+  border-radius: 15px;
+  display: inline-block;
+}
+</style>
+</head>
+
+<body>
+
+<!-- WHATSAPP -->
+<a class="wa-float" href="https://wa.me/17875460205?text=Hola%20quiero%20bajar%20los%20fees%20de%20mi%20negocio">💬</a>
+
+<!-- NAV -->
+<nav>
+<div>Isla Merchant</div>
+<a href="#contacto" class="btn-primary">Habla ahora</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+<h1>Tu negocio cobra <em>mejor</em> desde hoy</h1>
+<p class="hero-sub">Descubre cuánto puedes ahorrar en fees hoy mismo</p>
+
+<a href="https://wa.me/17875460205?text=Hola%20quiero%20una%20auditoria%20gratis" class="btn-primary">
+Auditoría gratis
+</a>
+</div>
+
+<!-- CONTADOR -->
+<section class="live-counter">
+<p class="counter-label">💸 Negocios como el tuyo están perdiendo HOY:</p>
+<h2 id="moneyCounter">$3,480</h2>
+<p class="counter-sub">en fees innecesarios que podrías estar ahorrando</p>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+<div class="features-grid">
+<div class="feat-card">⚡ Aprobación rápida</div>
+<div class="feat-card">🔒 Seguro</div>
+<div class="feat-card">📱 Cobra donde sea</div>
+<div class="feat-card">💬 Soporte local</div>
+<div class="feat-card">📊 Reportes</div>
+<div class="feat-card">💰 Ahorro real</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="qr-cta" id="contacto">
+<div class="qr-box">
+
+<p><strong>Escanea o escríbenos</strong></p>
+
+<img src="TU-QR-AQUI.png" width="170">
+
+<br><br>
+
+<a href="https://wa.me/17875460205?text=Hola%20quiero%20bajar%20los%20fees%20de%20mi%20negocio" class="btn-primary">
+Hablar por WhatsApp
+</a>
+
+</div>
+</section>
+
+<script>
+let count = 3480;
+setInterval(() => {
+  count += Math.floor(Math.random() * 15) + 5;
+  document.getElementById("moneyCounter").innerText = "$" + count.toLocaleString();
+}, 2000);
+</script>
+
+</body>
+</html>
