@@ -8,7 +8,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 
 <style>
-  *, *::before, *::after {
+ /* FIX VISUAL ROJO - MEJOR CONTRASTE */
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  box-shadow: 0 10px 30px rgba(232,25,44,0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(232,25,44,0.45);
+}
+
+.hero-tag {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+nav {
+  border-bottom: 1px solid rgba(232,25,44,0.25);
+}
+
+.hero::before {
+  background: radial-gradient(
+    ellipse 60% 60% at 75% 45%,
+    rgba(232,25,44,0.18) 0%,
+    transparent 70%
+  );
+} 
+ *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
