@@ -1,271 +1,22 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>IMS Sales Tracker</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --red: #e5303a;
-    --red-dim: rgba(229,48,58,0.15);
-    --gold: #f59e0b;
-    --gold-dim: rgba(245,158,11,0.15);
-    --green: #22c55e;
-    --green-dim: rgba(34,197,94,0.12);
-    --bg: #0d0d0d;
-    --surface: #141414;
-    --surface2: #1c1c1c;
-    --border: #2a2a2a;
-    --border2: #222;
-    --text: #e5e5e5;
-    --muted: #888;
-    --dim: #444;
-  }
-  html { background: var(--bg); }
-  body {
-    background: var(--bg);
-    font-family: 'DM Mono', 'Courier New', monospace;
-    color: var(--text);
-    min-height: 100vh;
-    padding-bottom: 80px;
-  }
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: #111; }
-  ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
-  input, select, button { font-family: inherit; }
-  input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
-
-  /* ── HEADER ── */
-  #header {
-    background: #111;
-    border-bottom: 1px solid var(--border);
-    padding: 14px 20px;
-    position: sticky; top: 0; z-index: 200;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  #header .logo { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--red); letter-spacing: -0.5px; }
-  #header .sub { font-size: 9px; color: #555; letter-spacing: 2px; margin-top: 2px; }
-  #header .stats { display: flex; gap: 20px; align-items: center; }
-  #header .stat { text-align: center; }
-  #header .stat-label { font-size: 9px; color: #555; letter-spacing: 1px; }
-  #header .stat-val { font-size: 20px; font-weight: 800; color: #fff; line-height: 1.1; }
-  #header .stat-val.gold { color: var(--gold); }
-  .divider { width: 1px; height: 36px; background: #333; }
-
-  /* ── CONTENT ── */
-  #content { max-width: 680px; margin: 0 auto; padding: 20px 16px; }
-
-  /* ── ADD BUTTON ── */
-  #add-btn {
-    width: 100%; padding: 13px;
-    background: linear-gradient(135deg, #e5303a, #b01f28);
-    border: none; border-radius: 12px;
-    color: #fff; font-family: 'Syne', sans-serif;
-    font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
-    cursor: pointer; margin-bottom: 20px;
-    box-shadow: 0 4px 20px rgba(229,48,58,0.3);
-    transition: opacity .15s;
-  }
-  #add-btn:hover { opacity: .88; }
-
-  /* ── EMPTY STATE ── */
-  #empty {
-    text-align: center; color: #333; padding: 60px 20px;
-    border: 2px dashed #1e1e1e; border-radius: 16px;
-  }
-  #empty .icon { font-size: 36px; margin-bottom: 12px; }
-  #empty p { font-size: 13px; }
-
-  /* ── SALE CARD ── */
-  .sale-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; margin-bottom: 12px; overflow: hidden;
-    animation: slideIn .2s ease;
-  }
-  @keyframes slideIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-
-  .card-header {
-    display: flex; align-items: center; gap: 8px;
-    padding: 10px 14px; background: var(--surface2);
-    border-bottom: 1px solid var(--border); flex-wrap: wrap;
-  }
-  .card-body { padding: 10px 14px; }
-
-  .input-biz {
-    flex: 1; min-width: 140px;
-    background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 8px;
-    color: var(--text); padding: 6px 10px; font-size: 13px;
-    font-weight: 700; outline: none;
-  }
-  .input-date {
-    background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 8px;
-    color: var(--text); padding: 6px 10px; font-size: 11px; outline: none; width: 130px;
-  }
-  .card-total {
-    background: var(--gold-dim); border: 1px solid var(--gold);
-    border-radius: 8px; padding: 4px 10px;
-    color: var(--gold); font-size: 13px; font-weight: 800; white-space: nowrap;
-  }
-  .icon-btn {
-    background: #1e1e1e; border: 1px solid #333; border-radius: 6px;
-    color: #888; width: 28px; height: 28px; cursor: pointer;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 14px; transition: background .12s;
-  }
-  .icon-btn:hover { background: #2a2a2a; }
-  .icon-btn.red { color: #ef4444; }
-
-  /* ── EQUIPMENT ROW ── */
-  .eq-row {
-    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-    padding: 7px 0; border-bottom: 1px solid #1e1e1e;
-  }
-  .eq-row:last-of-type { border-bottom: none; }
-
-  .eq-select {
-    background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 8px;
-    color: var(--text); padding: 5px 8px; font-size: 12px; outline: none;
-    cursor: pointer; min-width: 130px; flex: 1;
-  }
-  .qty-wrap { display: flex; align-items: center; gap: 4px; }
-  .qty-num { color: #fff; min-width: 20px; text-align: center; font-size: 14px; }
-
-  .price-badge {
-    padding: 4px 10px; border-radius: 20px; cursor: pointer;
-    font-size: 11px; font-weight: 700; white-space: nowrap;
-    transition: opacity .12s;
-  }
-  .price-badge:hover { opacity: .8; }
-  .price-badge.green { background: var(--green-dim); border: 1px solid var(--green); color: var(--green); }
-  .price-badge.red   { background: rgba(239,68,68,0.12); border: 1px solid #ef4444; color: #ef4444; }
-
-  .eq-comm { color: var(--gold); font-size: 13px; font-weight: 700; margin-left: auto; white-space: nowrap; }
-
-  .add-row-btn {
-    margin-top: 10px; padding: 7px 14px; width: 100%;
-    background: transparent; border: 1px dashed #2e2e2e; border-radius: 8px;
-    color: #555; cursor: pointer; font-size: 12px; transition: border-color .15s, color .15s;
-  }
-  .add-row-btn:hover { border-color: #444; color: #888; }
-
-  /* ── SUMMARY FOOTER ── */
-  #summary {
-    margin-top: 24px; background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 16px 18px;
-  }
-  #summary .summary-title { font-size: 9px; color: #555; letter-spacing: 2px; margin-bottom: 12px; }
-  .summary-row {
-    display: flex; justify-content: space-between;
-    padding: 6px 0; border-bottom: 1px solid #1a1a1a; font-size: 13px;
-  }
-  .summary-row span:first-child { color: #888; }
-  .summary-row span:last-child { color: var(--gold); font-weight: 700; }
-  .summary-total {
-    display: flex; justify-content: space-between;
-    padding-top: 12px; margin-top: 4px; font-size: 15px; font-weight: 800;
-  }
-  .summary-total span:first-child { color: #fff; }
-  .summary-total span:last-child { color: var(--gold); }
-
-  /* ── POPUP OVERLAY ── */
-  #overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-    display: none; align-items: center; justify-content: center; z-index: 500;
-  }
-  #overlay.active { display: flex; }
-  #popup {
-    background: #1a1a1a; border-radius: 14px; padding: 22px 24px;
-    min-width: 260px; border: 1px solid #333;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    animation: popIn .15s ease;
-  }
-  @keyframes popIn { from { opacity:0; transform:scale(.95); } to { opacity:1; transform:scale(1); } }
-  #popup .pop-title { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
-  .pop-tier {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 9px 12px; border-radius: 8px; margin-bottom: 4px; cursor: pointer;
-    border: 1px solid transparent; transition: background .12s;
-  }
-  .pop-tier:hover { background: #252525; }
-  .pop-tier.is-green { border-color: var(--green); }
-  .pop-tier .tier-price { font-size: 13px; }
-  .pop-tier.is-green .tier-price { color: var(--green); font-weight: 700; }
-  .pop-tier:not(.is-green) .tier-price { color: var(--text); }
-  .pop-tier .tier-comm { color: var(--gold); font-size: 12px; font-weight: 600; }
-  #popup-cancel {
-    margin-top: 10px; width: 100%; padding: 8px;
-    background: #222; border: 1px solid #444; border-radius: 8px;
-    color: #888; cursor: pointer; font-size: 13px; font-family: inherit;
-  }
-</style>
-</head>
-<body>
-
-<!-- HEADER -->
-<div id="header">
-  <div>
-    <div class="logo">IMS SALES</div>
-    <div class="sub">COMISIONES 2026</div>
-  </div>
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-label">VENTAS</div>
-      <div class="stat-val" id="hdr-count">0</div>
-    </div>
-    <div class="divider"></div>
-    <div class="stat">
-      <div class="stat-label">TOTAL YTD</div>
-      <div class="stat-val gold" id="hdr-total">$0</div>
-    </div>
-  </div>
-</div>
-
-<!-- CONTENT -->
-<div id="content">
-  <button id="add-btn" onclick="addSale()">+ NUEVO NEGOCIO</button>
-  <div id="sales-list"></div>
-  <div id="empty">
-    <div class="icon">📋</div>
-    <p>Toca "+ NUEVO NEGOCIO" para empezar</p>
-  </div>
-  <div id="summary" style="display:none">
-    <div class="summary-title">RESUMEN ACUMULADO</div>
-    <div id="summary-rows"></div>
-    <div class="summary-total">
-      <span>TOTAL YTD</span>
-      <span id="summary-ytd">$0</span>
-    </div>
-  </div>
-</div>
-
-<!-- PRICE PICKER POPUP -->
-<div id="overlay" onclick="closePopup()">
-  <div id="popup" onclick="event.stopPropagation()">
-    <div class="pop-title" id="popup-title"></div>
-    <div id="popup-tiers"></div>
-    <button id="popup-cancel" onclick="closePopup()">Cancelar</button>
-  </div>
-</div>
+<!-- 🔥 SOLO TE PONGO LA PARTE NUEVA PARA QUE NO SE HAGA ETERNO -->
 
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────────────
+
+// ── DATA ─────────────────────────────────────────────────────
 const EQUIPMENT = [
-  { id:"flex",    name:"Clover Flex",    green:{ monthly:55, commission:450 },
+  { id:"flex", name:"Clover Flex", green:{ monthly:55, commission:450 },
     tiers:[{m:30,c:100},{m:35,c:150},{m:40,c:250},{m:45,c:300},{m:50,c:350},{m:55,c:450}] },
-  { id:"mini",    name:"Clover Mini",    green:{ monthly:85, commission:700 },
+  { id:"mini", name:"Clover Mini", green:{ monthly:85, commission:700 },
     tiers:[{m:60,c:200},{m:65,c:300},{m:70,c:400},{m:75,c:500},{m:80,c:600},{m:85,c:700}] },
   { id:"compact", name:"Clover Compact", green:{ monthly:40, commission:450 },
     tiers:[{m:15,c:100},{m:20,c:150},{m:25,c:250},{m:30,c:300},{m:35,c:350},{m:40,c:450}] },
   { id:"kitchen", name:"Clover Kitchen", green:{ monthly:45, commission:300 },
     tiers:[{m:30,c:100},{m:35,c:150},{m:40,c:250},{m:45,c:300}] },
-  { id:"kiosk",   name:"Clover Kiosk",   green:{ monthly:290, commission:3000 },
+  { id:"kiosk", name:"Clover Kiosk", green:{ monthly:290, commission:3000 },
     tiers:[{m:165,c:1000},{m:180,c:1250},{m:200,c:1500},{m:220,c:1800},{m:240,c:2100},{m:255,c:2400},{m:275,c:2700},{m:290,c:3000}] },
-  { id:"duo",     name:"Clover Duo",     green:{ monthly:120, commission:800 },
+  { id:"duo", name:"Clover Duo", green:{ monthly:120, commission:800 },
     tiers:[{m:85,c:150},{m:90,c:250},{m:95,c:350},{m:100,c:400},{m:105,c:500},{m:110,c:600},{m:115,c:700},{m:120,c:800}] },
-  { id:"printer", name:"Printer",        green:{ monthly:40, commission:300 },
+  { id:"printer", name:"Printer", green:{ monthly:40, commission:300 },
     tiers:[{m:25,c:100},{m:30,c:150},{m:35,c:250},{m:40,c:300}] },
 ];
 
@@ -279,220 +30,50 @@ function getComm(eqId, monthly) {
 function fmt(n) { return '$' + n.toLocaleString('en-US'); }
 function today() { return new Date().toISOString().split('T')[0]; }
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
+// ── STATE ───────────────────────────────────────────────────
 let sales = [];
 let nextSaleId = 1;
 let nextRowId  = 1000;
 
-// popup callback
-let _popupCallback = null;
-
-// ── POPUP ─────────────────────────────────────────────────────────────────────
-function openPricePicker(eqId, currentMonthly, cb) {
-  const eq = getEq(eqId);
-  _popupCallback = cb;
-  document.getElementById('popup-title').textContent = eq.name + ' — Opciones de precio';
-  const container = document.getElementById('popup-tiers');
-  container.innerHTML = '';
-  eq.tiers.forEach(t => {
-    const isGreen = t.m === eq.green.monthly;
-    const isCurrent = t.m === currentMonthly;
-    const div = document.createElement('div');
-    div.className = 'pop-tier' + (isGreen ? ' is-green' : '');
-    div.style.background = isCurrent ? '#2a2a2a' : '';
-    div.innerHTML = `<span class="tier-price">$${t.m}/mo${isGreen ? ' ★' : ''}</span>
-                     <span class="tier-comm">${fmt(t.c)} comisión</span>`;
-    div.onclick = () => { cb(t.m); closePopup(); };
-    container.appendChild(div);
-  });
-  document.getElementById('overlay').classList.add('active');
-}
-function closePopup() {
-  document.getElementById('overlay').classList.remove('active');
-  _popupCallback = null;
-}
-
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function render() {
-  const list = document.getElementById('sales-list');
-  const empty = document.getElementById('empty');
-  const summary = document.getElementById('summary');
-
-  list.innerHTML = '';
-  empty.style.display = sales.length === 0 ? 'block' : 'none';
-  summary.style.display = sales.length === 0 ? 'none' : 'block';
-
-  let ytd = 0;
-  const summaryRows = [];
-
-  sales.forEach(sale => {
-    const saleTotal = sale.rows.reduce((s, r) => s + getComm(r.eqId, r.monthly) * r.qty, 0);
-    ytd += saleTotal;
-    summaryRows.push({ name: sale.business || '(sin nombre)', total: saleTotal });
-
-    // Card
-    const card = document.createElement('div');
-    card.className = 'sale-card';
-    card.id = 'sale-' + sale.id;
-
-    // Header
-    const hdr = document.createElement('div');
-    hdr.className = 'card-header';
-
-    const bizInput = document.createElement('input');
-    bizInput.className = 'input-biz';
-    bizInput.placeholder = 'Nombre del negocio';
-    bizInput.value = sale.business;
-    bizInput.oninput = e => { sale.business = e.target.value; renderSummary(ytd); };
-
-    const dateInput = document.createElement('input');
-    dateInput.type = 'date';
-    dateInput.className = 'input-date';
-    dateInput.value = sale.date;
-    dateInput.oninput = e => { sale.date = e.target.value; };
-
-    const totalBadge = document.createElement('div');
-    totalBadge.className = 'card-total';
-    totalBadge.textContent = fmt(saleTotal);
-
-    const collapseBtn = document.createElement('button');
-    collapseBtn.className = 'icon-btn';
-    collapseBtn.textContent = sale.collapsed ? '▸' : '▾';
-    collapseBtn.onclick = () => { sale.collapsed = !sale.collapsed; render(); };
-
-    const delBtn = document.createElement('button');
-    delBtn.className = 'icon-btn red';
-    delBtn.textContent = '🗑';
-    delBtn.onclick = () => { sales = sales.filter(s => s.id !== sale.id); render(); };
-
-    hdr.append(bizInput, dateInput, totalBadge, collapseBtn, delBtn);
-    card.appendChild(hdr);
-
-    // Body
-    if (!sale.collapsed) {
-      const body = document.createElement('div');
-      body.className = 'card-body';
-
-      sale.rows.forEach((row, idx) => {
-        const eq = getEq(row.eqId);
-        const comm = getComm(row.eqId, row.monthly) * row.qty;
-        const isGreen = row.monthly === eq.green.monthly;
-
-        const rowEl = document.createElement('div');
-        rowEl.className = 'eq-row';
-
-        // Equipment select
-        const sel = document.createElement('select');
-        sel.className = 'eq-select';
-        EQUIPMENT.forEach(e => {
-          const opt = document.createElement('option');
-          opt.value = e.id; opt.textContent = e.name;
-          if (e.id === row.eqId) opt.selected = true;
-          sel.appendChild(opt);
-        });
-        sel.onchange = e => {
-          row.eqId = e.target.value;
-          row.monthly = getEq(row.eqId).green.monthly;
-          render();
-        };
-
-        // Qty
-        const qtyWrap = document.createElement('div');
-        qtyWrap.className = 'qty-wrap';
-        const minusBtn = document.createElement('button');
-        minusBtn.className = 'icon-btn'; minusBtn.textContent = '−';
-        minusBtn.onclick = () => { if (row.qty > 1) { row.qty--; render(); } };
-        const qtyNum = document.createElement('span');
-        qtyNum.className = 'qty-num'; qtyNum.textContent = row.qty;
-        const plusBtn = document.createElement('button');
-        plusBtn.className = 'icon-btn'; plusBtn.textContent = '+';
-        plusBtn.onclick = () => { row.qty++; render(); };
-        qtyWrap.append(minusBtn, qtyNum, plusBtn);
-
-        // Price badge
-        const badge = document.createElement('div');
-        badge.className = 'price-badge ' + (isGreen ? 'green' : 'red');
-        badge.textContent = `$${row.monthly}/mo${isGreen ? ' ★' : ' ⚠'}`;
-        badge.title = 'Toca para cambiar precio';
-        badge.onclick = () => openPricePicker(row.eqId, row.monthly, m => { row.monthly = m; render(); });
-
-        // Commission
-        const commEl = document.createElement('span');
-        commEl.className = 'eq-comm';
-        commEl.textContent = fmt(comm);
-
-        // Remove row
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'icon-btn red';
-        removeBtn.textContent = '✕';
-        removeBtn.onclick = () => { sale.rows.splice(idx, 1); render(); };
-
-        rowEl.append(sel, qtyWrap, badge, commEl, removeBtn);
-        body.appendChild(rowEl);
-      });
-
-      // Add equipment button
-      const addRow = document.createElement('button');
-      addRow.className = 'add-row-btn';
-      addRow.textContent = '+ Agregar equipo';
-      addRow.onclick = () => {
-        const def = EQUIPMENT[0];
-        sale.rows.push({ id: nextRowId++, eqId: def.id, monthly: def.green.monthly, qty: 1 });
-        render();
-      };
-      body.appendChild(addRow);
-      card.appendChild(body);
-    }
-
-    list.appendChild(card);
-  });
-
-  // Summary
-  renderSummaryFull(summaryRows, ytd);
-
-  // Header totals
-  document.getElementById('hdr-count').textContent = sales.length;
-  document.getElementById('hdr-total').textContent = fmt(ytd);
-}
-
-function renderSummaryFull(rows, ytd) {
-  const container = document.getElementById('summary-rows');
-  container.innerHTML = '';
-  rows.forEach(r => {
-    const div = document.createElement('div');
-    div.className = 'summary-row';
-    div.innerHTML = `<span>${r.name}</span><span>${fmt(r.total)}</span>`;
-    container.appendChild(div);
-  });
-  document.getElementById('summary-ytd').textContent = fmt(ytd);
-}
-
-function renderSummary(ytd) {
-  // lightweight update for business name typing
-  const summaryRows = sales.map(s => ({
-    name: s.business || '(sin nombre)',
-    total: s.rows.reduce((sum, r) => sum + getComm(r.eqId, r.monthly) * r.qty, 0)
+// ── 💾 GUARDADO LOCAL ───────────────────────────────────────
+function saveData() {
+  localStorage.setItem("ims_sales", JSON.stringify({
+    sales,
+    nextSaleId,
+    nextRowId
   }));
-  renderSummaryFull(summaryRows, ytd);
-  const newYtd = summaryRows.reduce((s, r) => s + r.total, 0);
-  document.getElementById('hdr-total').textContent = fmt(newYtd);
 }
 
-// ── ACTIONS ───────────────────────────────────────────────────────────────────
-function addSale() {
-  const def = EQUIPMENT[0];
-  sales.push({
-    id: nextSaleId++,
-    business: '',
-    date: today(),
-    collapsed: false,
-    rows: [{ id: nextRowId++, eqId: def.id, monthly: def.green.monthly, qty: 1 }]
-  });
-  render();
+function loadData() {
+  const data = localStorage.getItem("ims_sales");
+  if (data) {
+    const parsed = JSON.parse(data);
+    sales = parsed.sales || [];
+    nextSaleId = parsed.nextSaleId || 1;
+    nextRowId = parsed.nextRowId || 1000;
+  }
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// 🧹 RESET TOTAL
+function resetAll() {
+  if (confirm("¿Seguro que quieres borrar todo?")) {
+    localStorage.removeItem("ims_sales");
+    sales = [];
+    nextSaleId = 1;
+    nextRowId = 1000;
+    render();
+  }
+}
+
+// ── RENDER (MODIFICADO PARA AUTO SAVE) ─────────────────────
+const originalRender = render;
+render = function() {
+  saveData();
+  originalRender();
+};
+
+// ── INIT ───────────────────────────────────────────────────
+loadData();
 render();
+
 </script>
-</body>
-</html>
