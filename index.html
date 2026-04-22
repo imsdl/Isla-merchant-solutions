@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
@@ -42,18 +41,18 @@
 /* ── HEADER ── */
 #header {
 background: #111;
-border-bottom: 1px solid var(–border);
+border-bottom: 1px solid var(--border);
 padding: 14px 20px;
 position: sticky; top: 0; z-index: 200;
 display: flex; align-items: center; justify-content: space-between;
 }
-#header .logo { font-family: ‘Syne’, sans-serif; font-size: 20px; font-weight: 800; color: var(–red); letter-spacing: -0.5px; }
+#header .logo { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--red); letter-spacing: -0.5px; }
 #header .sub { font-size: 9px; color: #555; letter-spacing: 2px; margin-top: 2px; }
 #header .stats { display: flex; gap: 20px; align-items: center; }
 #header .stat { text-align: center; }
 #header .stat-label { font-size: 9px; color: #555; letter-spacing: 1px; }
 #header .stat-val { font-size: 20px; font-weight: 800; color: #fff; line-height: 1.1; }
-#header .stat-val.gold { color: var(–gold); }
+#header .stat-val.gold { color: var(--gold); }
 .divider { width: 1px; height: 36px; background: #333; }
 
 /* ── CONTENT ── */
@@ -64,7 +63,7 @@ display: flex; align-items: center; justify-content: space-between;
 width: 100%; padding: 13px;
 background: linear-gradient(135deg, #e5303a, #b01f28);
 border: none; border-radius: 12px;
-color: #fff; font-family: ‘Syne’, sans-serif;
+color: #fff; font-family: 'Syne', sans-serif;
 font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
 cursor: pointer; margin-bottom: 20px;
 box-shadow: 0 4px 20px rgba(229,48,58,0.3);
@@ -82,7 +81,7 @@ border: 2px dashed #1e1e1e; border-radius: 16px;
 
 /* ── SALE CARD ── */
 .sale-card {
-background: var(–surface); border: 1px solid var(–border);
+background: var(--surface); border: 1px solid var(--border);
 border-radius: 14px; margin-bottom: 12px; overflow: hidden;
 animation: slideIn .2s ease;
 }
@@ -90,25 +89,25 @@ animation: slideIn .2s ease;
 
 .card-header {
 display: flex; align-items: center; gap: 8px;
-padding: 10px 14px; background: var(–surface2);
-border-bottom: 1px solid var(–border); flex-wrap: wrap;
+padding: 10px 14px; background: var(--surface2);
+border-bottom: 1px solid var(--border); flex-wrap: wrap;
 }
 .card-body { padding: 10px 14px; }
 
 .input-biz {
 flex: 1; min-width: 140px;
 background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 8px;
-color: var(–text); padding: 6px 10px; font-size: 13px;
+color: var(--text); padding: 6px 10px; font-size: 13px;
 font-weight: 700; outline: none;
 }
 .input-date {
 background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 8px;
-color: var(–text); padding: 6px 10px; font-size: 11px; outline: none; width: 130px;
+color: var(--text); padding: 6px 10px; font-size: 11px; outline: none; width: 130px;
 }
 .card-total {
-background: var(–gold-dim); border: 1px solid var(–gold);
+background: var(--gold-dim); border: 1px solid var(--gold);
 border-radius: 8px; padding: 4px 10px;
-color: var(–gold); font-size: 13px; font-weight: 800; white-space: nowrap;
+color: var(--gold); font-size: 13px; font-weight: 800; white-space: nowrap;
 }
 .icon-btn {
 background: #1e1e1e; border: 1px solid #333; border-radius: 6px;
@@ -128,7 +127,7 @@ padding: 7px 0; border-bottom: 1px solid #1e1e1e;
 
 .eq-select {
 background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 8px;
-color: var(–text); padding: 5px 8px; font-size: 12px; outline: none;
+color: var(--text); padding: 5px 8px; font-size: 12px; outline: none;
 cursor: pointer; min-width: 130px; flex: 1;
 }
 .qty-wrap { display: flex; align-items: center; gap: 4px; }
@@ -140,10 +139,10 @@ font-size: 11px; font-weight: 700; white-space: nowrap;
 transition: opacity .12s;
 }
 .price-badge:hover { opacity: .8; }
-.price-badge.green { background: var(–green-dim); border: 1px solid var(–green); color: var(–green); }
+.price-badge.green { background: var(--green-dim); border: 1px solid var(--green); color: var(--green); }
 .price-badge.red   { background: rgba(239,68,68,0.12); border: 1px solid #ef4444; color: #ef4444; }
 
-.eq-comm { color: var(–gold); font-size: 13px; font-weight: 700; margin-left: auto; white-space: nowrap; }
+.eq-comm { color: var(--gold); font-size: 13px; font-weight: 700; margin-left: auto; white-space: nowrap; }
 
 .add-row-btn {
 margin-top: 10px; padding: 7px 14px; width: 100%;
@@ -154,7 +153,7 @@ color: #555; cursor: pointer; font-size: 12px; transition: border-color .15s, co
 
 /* ── SUMMARY FOOTER ── */
 #summary {
-margin-top: 24px; background: var(–surface); border: 1px solid var(–border);
+margin-top: 24px; background: var(--surface); border: 1px solid var(--border);
 border-radius: 14px; padding: 16px 18px;
 }
 #summary .summary-title { font-size: 9px; color: #555; letter-spacing: 2px; margin-bottom: 12px; }
@@ -163,13 +162,13 @@ display: flex; justify-content: space-between;
 padding: 6px 0; border-bottom: 1px solid #1a1a1a; font-size: 13px;
 }
 .summary-row span:first-child { color: #888; }
-.summary-row span:last-child { color: var(–gold); font-weight: 700; }
+.summary-row span:last-child { color: var(--gold); font-weight: 700; }
 .summary-total {
 display: flex; justify-content: space-between;
 padding-top: 12px; margin-top: 4px; font-size: 15px; font-weight: 800;
 }
 .summary-total span:first-child { color: #fff; }
-.summary-total span:last-child { color: var(–gold); }
+.summary-total span:last-child { color: var(--gold); }
 
 /* ── POPUP OVERLAY ── */
 #overlay {
@@ -191,22 +190,19 @@ padding: 9px 12px; border-radius: 8px; margin-bottom: 4px; cursor: pointer;
 border: 1px solid transparent; transition: background .12s;
 }
 .pop-tier:hover { background: #252525; }
-.pop-tier.is-green { border-color: var(–green); }
+.pop-tier.is-green { border-color: var(--green); }
 .pop-tier .tier-price { font-size: 13px; }
-.pop-tier.is-green .tier-price { color: var(–green); font-weight: 700; }
-.pop-tier:not(.is-green) .tier-price { color: var(–text); }
-.pop-tier .tier-comm { color: var(–gold); font-size: 12px; font-weight: 600; }
+.pop-tier.is-green .tier-price { color: var(--green); font-weight: 700; }
+.pop-tier:not(.is-green) .tier-price { color: var(--text); }
+.pop-tier .tier-comm { color: var(--gold); font-size: 12px; font-weight: 600; }
 #popup-cancel {
 margin-top: 10px; width: 100%; padding: 8px;
 background: #222; border: 1px solid #444; border-radius: 8px;
 color: #888; cursor: pointer; font-size: 13px; font-family: inherit;
 }
 </style>
-
 </head>
 <body>
-
-<!-- HEADER -->
 
 <div id="header">
   <div>
@@ -226,8 +222,6 @@ color: #888; cursor: pointer; font-size: 13px; font-family: inherit;
   </div>
 </div>
 
-<!-- CONTENT -->
-
 <div id="content">
   <button id="add-btn" onclick="addSale()">+ NUEVO NEGOCIO</button>
   <div id="sales-list"></div>
@@ -244,8 +238,6 @@ color: #888; cursor: pointer; font-size: 13px; font-family: inherit;
     </div>
   </div>
 </div>
-
-<!-- PRICE PICKER POPUP -->
 
 <div id="overlay" onclick="closePopup()">
   <div id="popup" onclick="event.stopPropagation()">
@@ -284,12 +276,15 @@ function getComm(eqId, monthly) {
 function fmt(n) { return '$' + n.toLocaleString('en-US'); }
 function today() { return new Date().toISOString().split('T')[0]; }
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let sales = [];
-let nextSaleId = 1;
-let nextRowId  = 1000;
+// ── STATE & PERSISTENCE ────────────────────────────────────────────────────────
+let sales = JSON.parse(localStorage.getItem('ims_sales_v1')) || [];
+let nextSaleId = sales.length > 0 ? Math.max(...sales.map(s => s.id)) + 1 : 1;
+let nextRowId  = 10000;
 
-// popup callback
+function saveData() {
+  localStorage.setItem('ims_sales_v1', JSON.stringify(sales));
+}
+
 let _popupCallback = null;
 
 // ── POPUP ─────────────────────────────────────────────────────────────────────
@@ -319,6 +314,8 @@ function closePopup() {
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
 function render() {
+  saveData(); // Guardar cada vez que renderizamos un cambio
+  
   const list = document.getElementById('sales-list');
   const empty = document.getElementById('empty');
   const summary = document.getElementById('summary');
@@ -335,12 +332,10 @@ function render() {
     ytd += saleTotal;
     summaryRows.push({ name: sale.business || '(sin nombre)', total: saleTotal });
 
-    // Card
     const card = document.createElement('div');
     card.className = 'sale-card';
     card.id = 'sale-' + sale.id;
 
-    // Header
     const hdr = document.createElement('div');
     hdr.className = 'card-header';
 
@@ -348,13 +343,17 @@ function render() {
     bizInput.className = 'input-biz';
     bizInput.placeholder = 'Nombre del negocio';
     bizInput.value = sale.business;
-    bizInput.oninput = e => { sale.business = e.target.value; renderSummary(ytd); };
+    bizInput.oninput = e => { 
+      sale.business = e.target.value; 
+      renderSummary(ytd); 
+      saveData(); // Guardar nombre mientras escribe
+    };
 
     const dateInput = document.createElement('input');
     dateInput.type = 'date';
     dateInput.className = 'input-date';
     dateInput.value = sale.date;
-    dateInput.oninput = e => { sale.date = e.target.value; };
+    dateInput.oninput = e => { sale.date = e.target.value; saveData(); };
 
     const totalBadge = document.createElement('div');
     totalBadge.className = 'card-total';
@@ -368,25 +367,21 @@ function render() {
     const delBtn = document.createElement('button');
     delBtn.className = 'icon-btn red';
     delBtn.textContent = '🗑';
-    delBtn.onclick = () => { sales = sales.filter(s => s.id !== sale.id); render(); };
+    delBtn.onclick = () => { if(confirm('¿Borrar este negocio?')){ sales = sales.filter(s => s.id !== sale.id); render(); } };
 
     hdr.append(bizInput, dateInput, totalBadge, collapseBtn, delBtn);
     card.appendChild(hdr);
 
-    // Body
     if (!sale.collapsed) {
       const body = document.createElement('div');
       body.className = 'card-body';
-
       sale.rows.forEach((row, idx) => {
         const eq = getEq(row.eqId);
         const comm = getComm(row.eqId, row.monthly) * row.qty;
         const isGreen = row.monthly === eq.green.monthly;
-
         const rowEl = document.createElement('div');
         rowEl.className = 'eq-row';
 
-        // Equipment select
         const sel = document.createElement('select');
         sel.className = 'eq-select';
         EQUIPMENT.forEach(e => {
@@ -401,7 +396,6 @@ function render() {
           render();
         };
 
-        // Qty
         const qtyWrap = document.createElement('div');
         qtyWrap.className = 'qty-wrap';
         const minusBtn = document.createElement('button');
@@ -414,19 +408,15 @@ function render() {
         plusBtn.onclick = () => { row.qty++; render(); };
         qtyWrap.append(minusBtn, qtyNum, plusBtn);
 
-        // Price badge
         const badge = document.createElement('div');
         badge.className = 'price-badge ' + (isGreen ? 'green' : 'red');
         badge.textContent = `$${row.monthly}/mo${isGreen ? ' ★' : ' ⚠'}`;
-        badge.title = 'Toca para cambiar precio';
         badge.onclick = () => openPricePicker(row.eqId, row.monthly, m => { row.monthly = m; render(); });
 
-        // Commission
         const commEl = document.createElement('span');
         commEl.className = 'eq-comm';
         commEl.textContent = fmt(comm);
 
-        // Remove row
         const removeBtn = document.createElement('button');
         removeBtn.className = 'icon-btn red';
         removeBtn.textContent = '✕';
@@ -436,7 +426,6 @@ function render() {
         body.appendChild(rowEl);
       });
 
-      // Add equipment button
       const addRow = document.createElement('button');
       addRow.className = 'add-row-btn';
       addRow.textContent = '+ Agregar equipo';
@@ -448,14 +437,10 @@ function render() {
       body.appendChild(addRow);
       card.appendChild(body);
     }
-
     list.appendChild(card);
   });
 
-  // Summary
   renderSummaryFull(summaryRows, ytd);
-
-  // Header totals
   document.getElementById('hdr-count').textContent = sales.length;
   document.getElementById('hdr-total').textContent = fmt(ytd);
 }
@@ -473,7 +458,6 @@ function renderSummaryFull(rows, ytd) {
 }
 
 function renderSummary(ytd) {
-  // lightweight update for business name typing
   const summaryRows = sales.map(s => ({
     name: s.business || '(sin nombre)',
     total: s.rows.reduce((sum, r) => sum + getComm(r.eqId, r.monthly) * r.qty, 0)
@@ -483,7 +467,6 @@ function renderSummary(ytd) {
   document.getElementById('hdr-total').textContent = fmt(newYtd);
 }
 
-// ── ACTIONS ───────────────────────────────────────────────────────────────────
 function addSale() {
   const def = EQUIPMENT[0];
   sales.push({
@@ -496,9 +479,8 @@ function addSale() {
   render();
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// ── INIT ──
 render();
 </script>
-
 </body>
 </html>
