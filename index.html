@@ -16,8 +16,6 @@
     --gold-dim: rgba(245,158,11,0.15);
     --green: #22c55e;
     --green-dim: rgba(34,197,94,0.12);
-    --blue: #38bdf8;
-    --blue-dim: rgba(56,189,248,0.12);
     --bg: #0d0d0d;
     --surface: #141414;
     --surface2: #1c1c1c;
@@ -56,7 +54,6 @@ display: flex; align-items: center; justify-content: space-between;
 #header .stat-label { font-size: 9px; color: #555; letter-spacing: 1px; }
 #header .stat-val { font-size: 20px; font-weight: 800; color: #fff; line-height: 1.1; }
 #header .stat-val.gold { color: var(–gold); }
-#header .stat-val.blue { color: var(–blue); }
 .divider { width: 1px; height: 36px; background: #333; }
 
 /* ── CONTENT ── */
@@ -98,27 +95,12 @@ border-bottom: 1px solid var(–border); flex-wrap: wrap;
 }
 .card-body { padding: 10px 14px; }
 
-/* ── BIZ INFO ROW (nombre + tel) ── */
-.biz-info-wrap {
-flex: 1; min-width: 160px;
-display: flex; flex-direction: column; gap: 4px;
-}
 .input-biz {
-width: 100%;
+flex: 1; min-width: 140px;
 background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 8px;
 color: var(–text); padding: 6px 10px; font-size: 13px;
 font-weight: 700; outline: none;
 }
-.input-tel {
-width: 100%;
-background: transparent; border: none; border-bottom: 1px solid #2a2a2a;
-color: #555; padding: 2px 10px; font-size: 10px;
-letter-spacing: 0.5px; outline: none;
-transition: color .15s, border-color .15s;
-}
-.input-tel::placeholder { color: #3a3a3a; }
-.input-tel:focus { color: #888; border-color: #444; }
-
 .input-date {
 background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 8px;
 color: var(–text); padding: 6px 10px; font-size: 11px; outline: none; width: 130px;
@@ -170,38 +152,6 @@ color: #555; cursor: pointer; font-size: 12px; transition: border-color .15s, co
 }
 .add-row-btn:hover { border-color: #444; color: #888; }
 
-/* ── RESIDUAL SECTION ── */
-.residual-section {
-margin-top: 10px;
-padding: 10px 12px;
-background: var(–blue-dim);
-border: 1px solid rgba(56,189,248,0.2);
-border-radius: 10px;
-display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-}
-.residual-label {
-font-size: 9px; color: #555; letter-spacing: 1.5px; text-transform: uppercase;
-flex-basis: 100%; margin-bottom: 2px;
-}
-.residual-input-wrap {
-display: flex; align-items: center; gap: 6px; flex: 1; min-width: 160px;
-}
-.residual-input-wrap label { font-size: 11px; color: #666; white-space: nowrap; }
-.input-volume {
-background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 8px;
-color: var(–text); padding: 5px 10px; font-size: 12px;
-outline: none; width: 120px; text-align: right;
-}
-.input-volume:focus { border-color: var(–blue); }
-.residual-result {
-display: flex; align-items: center; gap: 6px;
-background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.25);
-border-radius: 8px; padding: 5px 12px;
-}
-.residual-result .res-label { font-size: 10px; color: #555; }
-.residual-result .res-amount { color: var(–blue); font-size: 14px; font-weight: 800; }
-.residual-result .res-per { font-size: 9px; color: #555; margin-left: 2px; }
-
 /* ── SUMMARY FOOTER ── */
 #summary {
 margin-top: 24px; background: var(–surface); border: 1px solid var(–border);
@@ -210,21 +160,16 @@ border-radius: 14px; padding: 16px 18px;
 #summary .summary-title { font-size: 9px; color: #555; letter-spacing: 2px; margin-bottom: 12px; }
 .summary-row {
 display: flex; justify-content: space-between;
-padding: 6px 0; border-bottom: 1px solid #1a1a1a; font-size: 12px;
-gap: 8px;
+padding: 6px 0; border-bottom: 1px solid #1a1a1a; font-size: 13px;
 }
-.summary-row span:first-child { color: #888; flex: 1; }
-.summary-row .s-comm { color: var(–gold); font-weight: 700; min-width: 70px; text-align: right; }
-.summary-row .s-res  { color: var(–blue); font-weight: 700; min-width: 70px; text-align: right; }
-.summary-totals {
+.summary-row span:first-child { color: #888; }
+.summary-row span:last-child { color: var(–gold); font-weight: 700; }
+.summary-total {
 display: flex; justify-content: space-between;
-padding-top: 12px; margin-top: 4px; font-size: 14px; font-weight: 800;
-gap: 8px; flex-wrap: wrap;
+padding-top: 12px; margin-top: 4px; font-size: 15px; font-weight: 800;
 }
-.summary-totals .st-label { color: #fff; flex: 1; }
-.summary-totals .st-comm { color: var(–gold); }
-.summary-totals .st-res  { color: var(–blue); font-size: 12px; }
-.summary-totals .st-sep  { color: #333; }
+.summary-total span:first-child { color: #fff; }
+.summary-total span:last-child { color: var(–gold); }
 
 /* ── POPUP OVERLAY ── */
 #overlay {
@@ -273,13 +218,8 @@ color: #888; cursor: pointer; font-size: 13px; font-family: inherit;
     </div>
     <div class="divider"></div>
     <div class="stat">
-      <div class="stat-label">COMISIONES</div>
+      <div class="stat-label">TOTAL YTD</div>
       <div class="stat-val gold" id="hdr-total">$0</div>
-    </div>
-    <div class="divider"></div>
-    <div class="stat">
-      <div class="stat-label">RESIDUAL/MES</div>
-      <div class="stat-val blue" id="hdr-residual">$0</div>
     </div>
   </div>
 </div>
@@ -294,11 +234,9 @@ color: #888; cursor: pointer; font-size: 13px; font-family: inherit;
   <div id="summary" style="display:none">
     <div class="summary-title">RESUMEN ACUMULADO</div>
     <div id="summary-rows"></div>
-    <div class="summary-totals">
-      <span class="st-label">TOTAL YTD</span>
-      <span class="st-comm" id="summary-ytd">$0</span>
-      <span class="st-sep">|</span>
-      <span class="st-res" id="summary-res">$0/mes</span>
+    <div class="summary-total">
+      <span>TOTAL YTD</span>
+      <span id="summary-ytd">$0</span>
     </div>
   </div>
 </div>
@@ -340,29 +278,13 @@ function getComm(eqId, monthly) {
 function fmt(n) { return '$' + n.toLocaleString('en-US'); }
 function today() { return new Date().toISOString().split('T')[0]; }
 
-// Residual: $50 por cada $40,000 de volumen mensual
-function calcResidual(volume) {
-  if (!volume || volume <= 0) return 0;
-  return Math.floor(volume / 40000) * 50;
-}
-
 // ── STATE & PERSISTENCE ────────────────────────────────────────────────────────
-let sales = JSON.parse(localStorage.getItem('ims_sales_v2')) || [];
-
-// Migrar datos de versión anterior si existen
-const oldData = localStorage.getItem('ims_sales_v1');
-if (oldData && sales.length === 0) {
-  try {
-    const old = JSON.parse(oldData);
-    sales = old.map(s => ({ ...s, phone: '', volume: 0 }));
-  } catch(e) {}
-}
-
+let sales = JSON.parse(localStorage.getItem('ims_sales_v1')) || [];
 let nextSaleId = sales.length > 0 ? Math.max(...sales.map(s => s.id)) + 1 : 1;
 let nextRowId  = 10000;
 
 function saveData() {
-  localStorage.setItem('ims_sales_v2', JSON.stringify(sales));
+  localStorage.setItem('ims_sales_v1', JSON.stringify(sales));
 }
 
 let _popupCallback = null;
@@ -394,8 +316,8 @@ function closePopup() {
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
 function render() {
-  saveData();
-
+  saveData(); // Guardar cada vez que renderizamos un cambio
+  
   const list = document.getElementById('sales-list');
   const empty = document.getElementById('empty');
   const summary = document.getElementById('summary');
@@ -405,42 +327,29 @@ function render() {
   summary.style.display = sales.length === 0 ? 'none' : 'block';
 
   let ytd = 0;
-  let totalResidual = 0;
   const summaryRows = [];
 
   sales.forEach(sale => {
     const saleTotal = sale.rows.reduce((s, r) => s + getComm(r.eqId, r.monthly) * r.qty, 0);
-    const saleResidual = calcResidual(sale.volume || 0);
     ytd += saleTotal;
-    totalResidual += saleResidual;
-    summaryRows.push({ name: sale.business || '(sin nombre)', total: saleTotal, residual: saleResidual });
+    summaryRows.push({ name: sale.business || '(sin nombre)', total: saleTotal });
 
     const card = document.createElement('div');
     card.className = 'sale-card';
     card.id = 'sale-' + sale.id;
 
-    // ── CARD HEADER ──
     const hdr = document.createElement('div');
     hdr.className = 'card-header';
-
-    // Bloque nombre + teléfono
-    const bizWrap = document.createElement('div');
-    bizWrap.className = 'biz-info-wrap';
 
     const bizInput = document.createElement('input');
     bizInput.className = 'input-biz';
     bizInput.placeholder = 'Nombre del negocio';
     bizInput.value = sale.business;
-    bizInput.oninput = e => { sale.business = e.target.value; saveData(); refreshSummary(); };
-
-    const telInput = document.createElement('input');
-    telInput.className = 'input-tel';
-    telInput.placeholder = '📞 Teléfono';
-    telInput.value = sale.phone || '';
-    telInput.type = 'tel';
-    telInput.oninput = e => { sale.phone = e.target.value; saveData(); };
-
-    bizWrap.append(bizInput, telInput);
+    bizInput.oninput = e => { 
+      sale.business = e.target.value; 
+      renderSummary(ytd); 
+      saveData(); // Guardar nombre mientras escribe
+    };
 
     const dateInput = document.createElement('input');
     dateInput.type = 'date';
@@ -462,14 +371,12 @@ function render() {
     delBtn.textContent = '🗑';
     delBtn.onclick = () => { if(confirm('¿Borrar este negocio?')){ sales = sales.filter(s => s.id !== sale.id); render(); } };
 
-    hdr.append(bizWrap, dateInput, totalBadge, collapseBtn, delBtn);
+    hdr.append(bizInput, dateInput, totalBadge, collapseBtn, delBtn);
     card.appendChild(hdr);
 
     if (!sale.collapsed) {
       const body = document.createElement('div');
       body.className = 'card-body';
-
-      // ── EQUIPMENT ROWS ──
       sale.rows.forEach((row, idx) => {
         const eq = getEq(row.eqId);
         const comm = getComm(row.eqId, row.monthly) * row.qty;
@@ -521,7 +428,6 @@ function render() {
         body.appendChild(rowEl);
       });
 
-      // ── ADD EQUIPMENT BTN ──
       const addRow = document.createElement('button');
       addRow.className = 'add-row-btn';
       addRow.textContent = '+ Agregar equipo';
@@ -531,92 +437,36 @@ function render() {
         render();
       };
       body.appendChild(addRow);
-
-      // ── RESIDUAL SECTION ──
-      const resSection = document.createElement('div');
-      resSection.className = 'residual-section';
-
-      const resLabel = document.createElement('div');
-      resLabel.className = 'residual-label';
-      resLabel.textContent = 'Residual mensual estimado';
-
-      const resInputWrap = document.createElement('div');
-      resInputWrap.className = 'residual-input-wrap';
-
-      const resInputLabel = document.createElement('label');
-      resInputLabel.textContent = 'Venta mensual:';
-
-      const volInput = document.createElement('input');
-      volInput.className = 'input-volume';
-      volInput.type = 'number';
-      volInput.min = '0';
-      volInput.step = '1000';
-      volInput.placeholder = '$0';
-      volInput.value = sale.volume || '';
-      volInput.oninput = e => {
-        sale.volume = parseFloat(e.target.value) || 0;
-        // Actualizar badge de residual en esta tarjeta sin re-render completo
-        const newRes = calcResidual(sale.volume);
-        resAmount.textContent = fmt(newRes) + '/mes';
-        saveData();
-        refreshSummary();
-      };
-
-      resInputWrap.append(resInputLabel, volInput);
-
-      const resResult = document.createElement('div');
-      resResult.className = 'residual-result';
-
-      const resAmountLabel = document.createElement('span');
-      resAmountLabel.className = 'res-label';
-      resAmountLabel.textContent = '~';
-
-      const resAmount = document.createElement('span');
-      resAmount.className = 'res-amount';
-      resAmount.textContent = fmt(saleResidual) + '/mes';
-
-      resResult.append(resAmountLabel, resAmount);
-      resSection.append(resLabel, resInputWrap, resResult);
-      body.appendChild(resSection);
-
       card.appendChild(body);
     }
     list.appendChild(card);
   });
 
-  renderSummaryFull(summaryRows, ytd, totalResidual);
+  renderSummaryFull(summaryRows, ytd);
   document.getElementById('hdr-count').textContent = sales.length;
   document.getElementById('hdr-total').textContent = fmt(ytd);
-  document.getElementById('hdr-residual').textContent = fmt(totalResidual);
 }
 
-function renderSummaryFull(rows, ytd, totalResidual) {
+function renderSummaryFull(rows, ytd) {
   const container = document.getElementById('summary-rows');
   container.innerHTML = '';
   rows.forEach(r => {
     const div = document.createElement('div');
     div.className = 'summary-row';
-    div.innerHTML = `<span>${r.name}</span>
-                     <span class="s-comm">${fmt(r.total)}</span>
-                     <span class="s-res">${fmt(r.residual)}/mes</span>`;
+    div.innerHTML = `<span>${r.name}</span><span>${fmt(r.total)}</span>`;
     container.appendChild(div);
   });
   document.getElementById('summary-ytd').textContent = fmt(ytd);
-  document.getElementById('summary-res').textContent = fmt(totalResidual) + '/mes';
-  document.getElementById('hdr-residual').textContent = fmt(totalResidual);
 }
 
-// Refresh ligero solo para summary y header (cuando cambia nombre o volumen sin re-render)
-function refreshSummary() {
-  const rows = sales.map(s => ({
+function renderSummary(ytd) {
+  const summaryRows = sales.map(s => ({
     name: s.business || '(sin nombre)',
-    total: s.rows.reduce((sum, r) => sum + getComm(r.eqId, r.monthly) * r.qty, 0),
-    residual: calcResidual(s.volume || 0)
+    total: s.rows.reduce((sum, r) => sum + getComm(r.eqId, r.monthly) * r.qty, 0)
   }));
-  const ytd = rows.reduce((s, r) => s + r.total, 0);
-  const totalResidual = rows.reduce((s, r) => s + r.residual, 0);
-  renderSummaryFull(rows, ytd, totalResidual);
-  document.getElementById('hdr-total').textContent = fmt(ytd);
+  renderSummaryFull(summaryRows, ytd);
+  const newYtd = summaryRows.reduce((s, r) => s + r.total, 0);
+  document.getElementById('hdr-total').textContent = fmt(newYtd);
 }
 
 function addSale() {
@@ -624,10 +474,8 @@ function addSale() {
   sales.push({
     id: nextSaleId++,
     business: '',
-    phone: '',
     date: today(),
     collapsed: false,
-    volume: 0,
     rows: [{ id: nextRowId++, eqId: def.id, monthly: def.green.monthly, qty: 1 }]
   });
   render();
